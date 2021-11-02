@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "x-login":"../../components/login/login"
+  },
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#f7f7f7"
+}

@@ -1,0 +1,105 @@
+<view class="bg">
+  <view class="nav">
+    <scroll-view class="scroll-view_H" scroll-x="true" >
+      <view class="scroll-view_H">
+        <view><view class="{{tab==0?'select':'normal'}}" data-item='0' bindtap='changeItem'>男生</view></view>
+        <view><view class="{{tab==1?'select':'normal'}}" data-item='1' bindtap='changeItem'>女生</view></view>
+        <view><view class="{{tab==2?'select':'normal'}}" data-item='2' bindtap='changeItem' >动漫</view></view>
+        <view><view class="{{tab==3?'select':'normal'}}" data-item='3' bindtap='changeItem'>风景</view></view>
+        <view><view class="{{tab==4?'select':'normal'}}" data-item='4' bindtap='changeItem'>萌宠</view></view>   
+      <view><view class="{{tab==5?'select':'normal'}}" data-item='5' bindtap='changeItem'>有趣</view></view>   
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<swiper current="{{item}}"  style="height:3200rpx"  bindchange="changeTab">
+<!-- 1 -->
+  <swiper-item>
+  <view class="image-list"> 
+<block wx:for="{{boysList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>
+  <!-- 1 -->
+  <!-- 2 -->
+   <swiper-item>
+ <view class="image-list"> 
+<block wx:for="{{girlsList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>
+  <!-- 2 -->
+  <!-- 3 -->
+   <swiper-item>
+  <view class="image-list"> 
+<block wx:for="{{animesList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill" ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>
+  <!-- 3 -->
+  <!-- 4 -->
+  <swiper-item>
+<view class="image-list"> 
+<block wx:for="{{sceneryList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>
+  <!-- 4 -->
+  <!-- 5 -->
+  <swiper-item>
+    <view class="image-list"> 
+<block wx:for="{{petsList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill" ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>  
+  <!-- 5 -->
+   <!-- 6-->
+  <swiper-item>
+  <view class="image-list"> 
+<block wx:for="{{funnyList}}" wx:key="*this" >
+<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
+<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+</view>
+</block>
+</view>
+<view class="adContainer">
+  <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+</view>
+  </swiper-item>  
+  <!-- 6 -->
+</swiper>
+<!-- 底部弹出层 -->
+<x-login modalShow="{{modalShow}}" 
+bind:loginsuccess="onLoginSuccess"
+bind:loginfalse="onLoginFalse"
+></x-login>

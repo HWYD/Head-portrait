@@ -1,0 +1,12 @@
+
+<navigator url="/pages/upload/upload" hover-class="none">
+<view style="margin-top:120rpx">
+<button>去上传图片</button>
+</view>
+</navigator>
+
+<navigator url="/pages/showImg/showImg" hover-class="none">
+<view style="margin-top:120rpx">
+<button>展示图片</button>
+</view>
+</navigator>

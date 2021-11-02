@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/mixHead/mixHead",
+    "pages/showImg/showImg",
+    "pages/showImgdel/showImgdel",
+    "pages/me/me",
+    "pages/advice/advice",
+    "pages/recommend/recommend"   
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "头像分享",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#1296db",
+    "list": [
+      {
+        "pagePath": "pages/mixHead/mixHead",
+        "text": "推荐",
+        "iconPath": "images/faxian.png",
+        "selectedIconPath": "images/faxian1.png"
+      },
+      {
+        "pagePath": "pages/showImg/showImg",
+        "text": "分类",
+        "iconPath": "images/sort.png",
+        "selectedIconPath": "images/sort1.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "images/geren.png",
+        "selectedIconPath": "images/geren2.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

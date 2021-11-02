@@ -1,0 +1,21 @@
+<view class="image-list"> 
+<block wx:for="{{mixHead}}" wx:key="*this" >
+<view class="image-wrap" data-imginfo="{{item.imgurl}}" bind:tap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill"></image>
+</view>
+</block>
+</view>
+<!-- <view class="sortPosition" bindtap="sortList">
+<image src="../../images/sorting.png"></image>
+</view> -->
+
+<movable-area class="movable_box">
+<movable-view x="{{x}}" y="{{y}}"
+         direction="all"  class="sortPosition" 
+         bindtap="sortList" bindchange="changePosition"
+         bindtouchend="touchEndfn">
+        <image src="../../images/sorting.png"></image>
+        </movable-view>
+      </movable-area>
+
+      
