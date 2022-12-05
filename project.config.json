@@ -37,87 +37,74 @@
   "libVersion": "2.8.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": -1,
           "name": "db guide",
           "pathName": "pages/databaseGuide/databaseGuide",
           "query": ""
         },
         {
-          "id": -1,
           "name": "pages/upload/upload",
           "pathName": "pages/upload/upload",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/showImg/showImg",
           "pathName": "pages/showImg/showImg",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/index/index",
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/getcode/getcode",
           "pathName": "pages/getcode/getcode",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/advice/advice",
           "pathName": "pages/advice/advice",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/me/me",
           "pathName": "pages/me/me",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/recommend/recommend",
           "pathName": "pages/recommend/recommend",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/mixHead/mixHead",
           "pathName": "pages/mixHead/mixHead",
+          "query": "",
           "scene": null
         }
       ]
     }
+  },
+  "compileType": "miniprogram",
+  "srcMiniprogramRoot": "miniprogram/",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }
