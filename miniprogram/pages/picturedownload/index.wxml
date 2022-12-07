@@ -1,0 +1,6 @@
+<view class="img-wrap">
+   <image src="{{imgurl}}" mode="aspectFill"></image>
+</view>
+
+
+<button bindtap="download">保存到手机</button>

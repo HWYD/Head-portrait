@@ -1,0 +1,9 @@
+.img-wrap{
+  margin: 0 auto;
+  width: 700rpx;
+  height: 700rpx;
+}
+.img-wrap image{
+  width: 100%;
+  height: 100%;
+}

@@ -1,6 +1,6 @@
 <view class="image-list"> 
-<block wx:for="{{mixHead}}" wx:key="*this" >
-<view class="image-wrap" data-imginfo="{{item.imgurl}}" bind:tap="toshowImg">
+<block wx:for="{{mixHead}}" wx:key="_id" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bind:tap="toshowImg">
 <image class="image" src="{{item.imgurl}}" mode="aspectFill"></image>
 </view>
 </block>

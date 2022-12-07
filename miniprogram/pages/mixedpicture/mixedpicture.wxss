@@ -1,0 +1,46 @@
+/* 图片样式 */
+.image-list{
+  width: 690rpx;
+  margin: 0 auto;
+  /* margin-right: 10rpx; */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  /* margin-top: 30rpx; */
+}
+.image-wrap{
+  width:334rpx;
+  height: 334rpx;
+  /* margin-right: 10rpx; */
+  margin-bottom: 22rpx;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.image{
+  width: 100%;
+  height: 100%;
+}
+.movable_box{
+  width: 100%;
+  height: 100%; 
+  position: fixed;
+  right: 20rpx;
+  top: 0;
+}
+.sortPosition{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  left: 650rpx;
+  top:50%;
+  padding: 20rpx;
+  border-radius: 50%;
+  background-color: rgb(245,245,245,0.5);
+}
+.sortPosition image{
+  width: 100%;
+  height: 100%;
+}
+movable-view {pointer-events: auto;}
+movable-area {pointer-events: none;}

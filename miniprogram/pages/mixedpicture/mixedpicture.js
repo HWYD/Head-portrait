@@ -73,9 +73,9 @@ Page({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name:'mixedHead',
+      name:'getPictureList',
       data:{
-        $url:'getMixedHead',
+        $url:'pictures',
         start:this.data.mixHead.length,
         sort,
         count
@@ -89,14 +89,17 @@ Page({
     })
   },
   toshowImg(event){
-    console.log(event.currentTarget.dataset.imginfo)
-    const imginfo = event.currentTarget.dataset.imginfo
-    const previewList = [imginfo]
-    console.log(previewList)
-    wx.previewImage({
-      current: previewList[0], // 当前显示图片的http链接
-      urls: previewList
+    // console.log(event.currentTarget.dataset.imginfo)
+    const imgurl = event.currentTarget.dataset.imgurl
+    wx.navigateTo({
+      url: `/pages/picturedownload/index?imgurl=${imgurl}`,
     })
+    // const previewList = [imginfo]
+    // console.log(previewList)
+    // wx.previewImage({
+    //   current: previewList[0], // 当前显示图片的http链接
+    //   urls: previewList
+    // })
   },
   sortList(){
     if(sort ==='asc'){
