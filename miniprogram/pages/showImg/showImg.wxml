@@ -16,9 +16,9 @@
 <!-- 1 -->
   <swiper-item>
   <view class="image-list"> 
-<block wx:for="{{boysList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+<block wx:for="{{boy_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill"  ></image>
 </view>
 </block>
 </view>
@@ -30,9 +30,9 @@
   <!-- 2 -->
    <swiper-item>
  <view class="image-list"> 
-<block wx:for="{{girlsList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+<block wx:for="{{girl_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill"  ></image>
 </view>
 </block>
 </view>
@@ -44,9 +44,9 @@
   <!-- 3 -->
    <swiper-item>
   <view class="image-list"> 
-<block wx:for="{{animesList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill" ></image>
+<block wx:for="{{comic_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill" ></image>
 </view>
 </block>
 </view>
@@ -58,9 +58,9 @@
   <!-- 4 -->
   <swiper-item>
 <view class="image-list"> 
-<block wx:for="{{sceneryList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+<block wx:for="{{loves_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill"  ></image>
 </view>
 </block>
 </view>
@@ -72,9 +72,9 @@
   <!-- 5 -->
   <swiper-item>
     <view class="image-list"> 
-<block wx:for="{{petsList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill" ></image>
+<block wx:for="{{funny_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill" ></image>
 </view>
 </block>
 </view>
@@ -86,9 +86,9 @@
    <!-- 6-->
   <swiper-item>
   <view class="image-list"> 
-<block wx:for="{{funnyList}}" wx:key="*this" >
-<view class="image-wrap" data-imgList="{{item.img}}" bindtap="gotodetail">
-<image class="image" src="{{item.img_cover}}" mode="aspectFill"  ></image>
+<block wx:for="{{pet_picture}}" wx:key="*this" >
+<view class="image-wrap" data-imgurl="{{item.imgurl}}" bindtap="toshowImg">
+<image class="image" src="{{item.imgurl}}" mode="aspectFill"  ></image>
 </view>
 </block>
 </view>

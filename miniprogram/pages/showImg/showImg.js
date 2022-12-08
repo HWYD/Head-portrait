@@ -1,4 +1,4 @@
-let imagesList = [{ flag: 0, name: 'boysList' }, { flag: 0, name: 'girlsList' }, { flag: 0, name: 'animesList' }, { flag: 0, name: 'sceneryList' }, { flag: 0, name: 'petsList' }, { flag: 0, name: 'funnyList' }];
+let imagesList = [{ flag: 0, type: 'boy_picture' }, { flag: 0, type: 'girl_picture' }, { flag: 0, type: 'comic_picture' }, { flag: 0, type: 'loves_picture' }, { flag: 0, type: 'funny_picture' }, { flag: 0, type: 'pet_picture' }, { flag: 0, type: 'sceney_picture' }];
 let interstitialAd = null
 let adshow =false
 const db =wx.cloud.database()
@@ -13,12 +13,13 @@ Page({
   data: {
     item: 0,
     tab: 0,
-    animesList: '',
-    boysList: '',
-    girlsList:'',
-    funnyList:'',
-    petsList:'',
-    sceneryList:'',
+    boy_picture: [],
+    girl_picture: [],
+    comic_picture:[],
+    loves_picture:[],
+    funny_picture:[],
+    pet_picture:[],
+    sceney_picture:[],
     modalShow:false,
   },
   //页面切换
@@ -29,7 +30,7 @@ Page({
     })
     if (imagesList[item].flag == 0) {
       console.log('shi0')
-      this.getApi(imagesList[item].name, item)
+      this.getApi(imagesList[item].type, item)
     }
     console.log(item)
   },
@@ -40,25 +41,27 @@ Page({
     })
     if (imagesList[tab].flag == 0) {
       console.log('shi00')
-      this.getApi(imagesList[tab].name, tab)
+      this.getApi(imagesList[tab].type, tab)
 
     }
     console.log(this.data.tab)
   },
-  getApi(name, index) {
-    console.log(name)
+  getApi(type, index) {
     wx.showLoading({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name: 'ImgList',
+      name: 'getPictureList',
       data: {
-        $url: name
+        $url: 'pictures',
+        type,
+        start: 1,
+        count: 20
       }
     }).then((res) => {
       console.log(res)
       this.setData({
-        [name]: res.result
+        [type]: res.result.data
       })
       imagesList[index].flag = 1
       wx.hideLoading()
@@ -73,16 +76,19 @@ Page({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name: 'ImgList',
+      name: 'getPictureList',
       data: {
-        $url: 'boysList'
+        $url: 'pictures',
+        type: 'boy_picture',
+        start: 1,
+        count: 20
       }
     }).then((res) => {
-      // console.log(res)
+      console.log(res.result)
       this.setData({
-        boysList: res.result
+        boy_picture: res.result.data
       })
-      imagesList = [{ flag: 1, name: 'boysList' }, { flag: 0, name: 'girlsList' }, { flag: 0, name: 'animesList' }, { flag: 0, name: 'sceneryList' }, { flag: 0, name: 'petsList' }, { flag: 0, name: 'funnyList' }]
+      // imagesList = [{ flag: 1, name: 'boysList' }, { flag: 0, name: 'girlsList' }, { flag: 0, name: 'animesList' }, { flag: 0, name: 'sceneryList' }, { flag: 0, name: 'petsList' }, { flag: 0, name: 'funnyList' }]
       wx.hideLoading()
     })
     this.getVedioAd()
@@ -104,6 +110,19 @@ Page({
      
        return 123
     })
+  },
+  toshowImg(event){
+    // console.log(event.currentTarget.dataset.imginfo)
+    const imgurl = event.currentTarget.dataset.imgurl
+    wx.navigateTo({
+      url: `/pages/picturedownload/index?imgurl=${imgurl}`,
+    })
+    // const previewList = [imginfo]
+    // console.log(previewList)
+    // wx.previewImage({
+    //   current: previewList[0], // 当前显示图片的http链接
+    //   urls: previewList
+    // })
   },
   gotodetail(event) {
     let hello = event.currentTarget.dataset.imglist
