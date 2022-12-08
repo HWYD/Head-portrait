@@ -1,5 +1,5 @@
 // miniprogram/pages/mixHead/mixHead.js
-let count=30
+let count=8
 let sort='asc'
 let x =0,y=0
 Page({

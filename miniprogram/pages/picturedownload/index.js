@@ -94,6 +94,9 @@ Page({
           filePath: res.path,
           success(res) { 
             console.log(res)
+            wx.showModal({
+              title: '保存成功',
+            })
           }
         })
       }

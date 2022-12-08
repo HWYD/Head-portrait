@@ -20,16 +20,19 @@ page{
 }
 .nav{
   width: 100%;
-  height: 80rpx;
+  height: 100rpx;
 }
 .scroll-view_H{
-  margin-left: 20rpx;
+  width:750rpx;
+  padding-left: 20rpx;
   height: 80rpx;
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
 }
 .normal{
-  width:80rpx;
+  display: flex;
+  /* width:80rpx; */
   height: 80rpx;
   line-height: 80rpx;
   padding-left: 20rpx;
@@ -37,28 +40,30 @@ page{
   font-size: 30rpx;
 }
 .select{
-  width: 80rpx;
+  /* width: 80rpx; */
+  display: flex;
   height: 80rpx;
   line-height: 80rpx;
-  padding-left: 26rpx;
-  padding-right: 26rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
   font-size: 30rpx;
   color: red;
 }
 /* 图片样式 */
 .image-list{
-  width: 700rpx;
+  width: 690rpx;
   margin: 0 auto;
-  margin-right: 10rpx;
+  /* margin-right: 10rpx; */
   display: flex;
+  justify-content: space-between;
   flex-wrap:wrap;
-  margin-top: 20rpx;
+  /* margin-top: 30rpx; */
 }
 .image-wrap{
-  width:220rpx;
-  height: 220rpx;
-  margin-right: 10rpx;
-  margin-bottom: 16rpx;
+  width:334rpx;
+  height: 334rpx;
+  /* margin-right: 10rpx; */
+  margin-bottom: 22rpx;
   position: relative;
   overflow: hidden;
   text-align: center;
