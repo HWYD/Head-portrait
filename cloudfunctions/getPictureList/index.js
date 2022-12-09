@@ -13,9 +13,18 @@ exports.main = async (event, context) => {
     const sort = event.sort? event.sort : 'desc'
     //参数type对应相应类型的数据表
     const collection = event.type? event.type : 'mixed_picture' 
-    ctx.body= await db.collection(collection).orderBy('createTime',sort)
-    .skip(event.start)
-    .limit(event.count).get()
+    const dramaId = event.dramaId? event.dramaId : 0
+    if(dramaId != 0){
+      ctx.body = await db.collection(collection).where({
+        dramaId: _.eq(dramaId)
+      }).orderBy('createTime',sort)
+      .skip(event.start)
+      .limit(event.count).get()
+    }else{
+      ctx.body = await db.collection(collection).orderBy('createTime',sort)
+      .skip(event.start)
+      .limit(event.count).get()
+    }
   }) 
   return app.serve()
 }
