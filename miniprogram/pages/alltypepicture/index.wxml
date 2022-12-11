@@ -1,0 +1,21 @@
+<scroll-view class="scroll-view_H" scroll-x="true"  style="width: 100%;">
+    <block wx:for="{{pictureTypes}}" wx:key="name">
+        <view class="{{tab==index?'select':'normal'}}" data-tab='{{index}}' bindtap='changeItem'>{{item.name}}</view>
+    </block>
+</scroll-view>
+<swiper current="{{tab}}"  style="min-height:100vh"  bindchange="changeTab" class="swiper-wrap">
+  <swiper-item wx:for="{{pictureTypes}}" wx:key="type">
+    <scroll-view class="img-scroll-view" scroll-y="true" 	lower-threshold="300" 	bindscrolltolower="getMore">
+      <view class="adContainer">
+        <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
+      </view>
+      <view class="image-list"> 
+        <block wx:for="{{ item.data }}" wx:key="index"  wx:for-index="idx" wx:for-item="pictureItem">
+          <view class="image-wrap" data-imgurl="{{pictureItem.imgurl}}" bindtap="toshowImg">
+            <image class="image" src="{{pictureItem.imgurl}}" mode="aspectFill" ></image>
+          </view>
+        </block>
+      </view>
+     </scroll-view>
+  </swiper-item>
+</swiper>

@@ -94,8 +94,9 @@ Page({
           filePath: res.path,
           success(res) { 
             console.log(res)
-            wx.showModal({
+            wx.showToast({
               title: '保存成功',
+              image: '../../images/smile.png'
             })
           }
         })

@@ -1,26 +1,26 @@
 import { compareVersion } from '../../utils/index'
 const db = wx.cloud.database();
 const count = 12;
-let interstitialAd = null;
 let adshow = false;
 let videoAd = null;
 const app = getApp();
+// 在页面中定义插屏广告
+let interstitialAd = null
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     tab: 0,
-    //flag:是否请求过;dramaId:剧名id; noMore:是否没有更多图片了
+    //flag:是否请求过; noMore:是否没有更多图片了
     pictureTypes: [
-      { flag: 0, dramaId: "1", name: "海贼王", data: [], noMore: false, interstitialAdShow: false},
-      { flag: 0, dramaId: "2", name: "火影", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "3", name: "七龙珠", data: [], noMore: false , interstitialAdShow: false},
-      { flag: 0, dramaId: "4", name: "犬夜叉", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "5", name: "美少女战士", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "6", name: "哆啦A梦", data: [], noMore: false , interstitialAdShow: false}
-      // { flag: 0, dramaId: "7", name: "蜡笔小新", data: [], noMore: false },
-      // { flag: 0, dramaId: "8", name: "猫和老鼠", data: [], noMore: false },
+      { flag: 0, type: "boy_picture", name: "男生", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "girl_picture", name: "女生", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "comic_picture", name: "动漫", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "loves_picture", name: "情侣", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "funny_picture", name: "搞怪", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "pet_picture", name: "萌宠", data: [], noMore: false, interstitialAdShow: false },
+      { flag: 0, type: "sceney_picture", name: "风景", data: [], noMore: false, interstitialAdShow: false}
     ]
   },
   //页面切换
@@ -49,10 +49,9 @@ Page({
         name: "getPictureList",
         data: {
           $url: "pictures",
-          type: "comic_picture",
+          type: this.data.pictureTypes[index].type,
           start: this.data.pictureTypes[index].data.length,
           count,
-          dramaId: this.data.pictureTypes[index].dramaId,
         },
       })
       .then((res) => {
@@ -65,16 +64,16 @@ Page({
           ),
           [pictureTypesFlagKey]: 1,
           [pictureTypesNoMoreKey]: res.result.data.length < count
-        })
-         //插屏广告
-        if(this.data.pictureTypes[index].data.length > (count*3) && !this.data.pictureTypes[index].interstitialAdShow){
+        });
+        //插屏广告
+        if(this.data.pictureTypes[index].data.length > (count) && !this.data.pictureTypes[index].interstitialAdShow){
           // console.log('开广告')
           this.showInterstitialAd()
           this.setData({
             [`pictureTypes[${index}].interstitialAdShow`]: true
           })
         }
-      })  
+      });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -92,6 +91,23 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {},
+
+  /**
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {},
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {},
+
+  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {},
@@ -99,11 +115,9 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
-  },
-  getMore(){
-    console.log('触底')
+  onReachBottom: function () {},
+  getMore() {
+    console.log("触底");
     this.getPictureList(this.data.tab);
   },
 
@@ -115,14 +129,12 @@ Page({
   createInterstitialAd(){
     const version = wx.getSystemInfoSync().SDKVersion
     if (compareVersion(version, '2.6.0') >= 0) {
-      interstitialAd = wx.createInterstitialAd({adUnitId: 'adunit-bcb13b8c9b249a17' })
+      interstitialAd = wx.createInterstitialAd({adUnitId: 'adunit-f6bf56ca178a899a' })
     }
   },
   //展示插屏广告
   showInterstitialAd(){
-    console.log('来')
     if(interstitialAd){
-      console.log('3113')
       interstitialAd.show().catch((err) => {
         console.error(err)
       })

@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
     const dramaId = event.dramaId? event.dramaId : 0
     if(dramaId != 0){
       ctx.body = await db.collection(collection).where({
-        dramaId: _.eq(dramaId)
+        dramaId: db.command.eq(dramaId)
       }).orderBy('createTime',sort)
       .skip(event.start)
       .limit(event.count).get()

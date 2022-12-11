@@ -1,14 +1,17 @@
-// miniprogram/pages/mixHead/mixHead.js
-let count=8
+import { compareVersion } from '../../utils/index'
+let count= 12
 let sort='asc'
 let x =0,y=0
+// 在页面中定义插屏广告
+let interstitialAd = null
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    mixHead:[],
+    mixedPicture:[],
+    noMore: false, //是否没有更多图片了
     x:0,
     y:0
   },
@@ -17,7 +20,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMixList()
+    this.getPictureList()
+    this.createInterstitialAd()
   },
 
   /**
@@ -59,7 +63,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-   this.getMixList()
+  //  this.getPictureList()
+  },
+  getMore() {
+    console.log("触底");
+    this.getPictureList();
   },
 
   /**
@@ -68,25 +76,28 @@ Page({
   onShareAppMessage: function () {
 
   },
-  getMixList(){
-    wx.showLoading({
-      title: '加载中',
-    })
+  getPictureList(){
+    if (this.data.noMore) {
+      return;
+    }
     wx.cloud.callFunction({
       name:'getPictureList',
       data:{
         $url:'pictures',
-        start:this.data.mixHead.length,
+        start:this.data.mixedPicture.length,
         sort,
         count
       }
     }).then((res)=>{
-      console.log(res)
       this.setData({
-        mixHead:this.data.mixHead.concat(res.result.data)
+        mixedPicture:this.data.mixedPicture.concat(res.result.data),
+        noMore: res.result.data.length < count
       })
-      wx.hideLoading()
     })
+    //插屏广告
+    if(this.data.mixedPicture.length > (count*3)){
+      this.showInterstitialAd()
+    }
   },
   toshowImg(event){
     // console.log(event.currentTarget.dataset.imginfo)
@@ -94,12 +105,6 @@ Page({
     wx.navigateTo({
       url: `/pages/picturedownload/index?imgurl=${imgurl}`,
     })
-    // const previewList = [imginfo]
-    // console.log(previewList)
-    // wx.previewImage({
-    //   current: previewList[0], // 当前显示图片的http链接
-    //   urls: previewList
-    // })
   },
   sortList(){
     if(sort ==='asc'){
@@ -108,12 +113,12 @@ Page({
     else{
       sort='asc'
     }
-    this.data.mixHead=[]
+    this.data.mixedPicture=[]
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
     })
-    this.getMixList()  
+    this.getPictureList()  
   },
   changePosition(event){
     console.log(event)
@@ -128,5 +133,20 @@ Page({
         x :0,
         y
       })
-  }
+  },
+    // 插屏广告
+    createInterstitialAd(){
+      const version = wx.getSystemInfoSync().SDKVersion
+      if (compareVersion(version, '2.6.0') >= 0) {
+        interstitialAd = wx.createInterstitialAd({adUnitId: 'adunit-f6bf56ca178a899a' })
+      }
+    },
+    //展示插屏广告
+    showInterstitialAd(){
+      if(interstitialAd){
+        interstitialAd.show().catch((err) => {
+          console.error(err)
+        })
+      }
+    },
 })

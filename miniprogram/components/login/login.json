@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "x-bottom-modal": "../../components/buttom-mod/buttom-mod"
-  }
-}

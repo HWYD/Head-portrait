@@ -1,11 +1,7 @@
 {
   "pages": [
-    "pages/mixedpicture/mixedpicture",
-    "pages/showImg/showImg",
-    "pages/showImgdel/showImgdel",
-    "pages/me/me",
-    "pages/advice/advice",
-    "pages/recommend/recommend",
+    "pages/alltypepicture/index",
+    "pages/mixedpicture/mixedpicture",  
     "pages/picturedownload/index",
     "pages/comicpicture/index"
   ],
@@ -17,26 +13,26 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#000000",
-    "selectedColor": "#1296db",
+    "color": "#303133",
+    "selectedColor": "#409EFF",
     "list": [
       {
-        "pagePath": "pages/mixedpicture/mixedpicture",
-        "text": "推荐",
-        "iconPath": "images/faxian.png",
-        "selectedIconPath": "images/faxian1.png"
-      },
-      {
-        "pagePath": "pages/showImg/showImg",
+        "pagePath": "pages/alltypepicture/index",
         "text": "分类",
-        "iconPath": "images/sort.png",
-        "selectedIconPath": "images/sort1.png"
+        "iconPath": "images/types.png",
+        "selectedIconPath": "images/types1.png"
       },
       {
         "pagePath": "pages/comicpicture/index",
         "text": "动漫",
-        "iconPath": "images/geren.png",
-        "selectedIconPath": "images/geren2.png"
+        "iconPath": "images/comic.png",
+        "selectedIconPath": "images/comic1.png"
+      },
+      {
+        "pagePath": "pages/mixedpicture/mixedpicture",
+        "text": "全部",
+        "iconPath": "images/all.png",
+        "selectedIconPath": "images/all1.png"
       }
     ]
   },

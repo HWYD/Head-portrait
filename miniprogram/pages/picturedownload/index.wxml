@@ -1,6 +1,6 @@
+<ad unit-id="adunit-3321a0138c50a202" ad-type="video" ad-theme="white"></ad>
 <view class="img-wrap">
    <image src="{{imgurl}}" mode="aspectFill"></image>
 </view>
+<button bindtap="download" class="btn-wrap">保存到手机</button>
 
-
-<button bindtap="download">保存到手机</button>

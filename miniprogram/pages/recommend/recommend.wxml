@@ -1,3 +1,0 @@
-<!--miniprogram/pages/recommend/recommend.wxml-->
-<text>miniprogram/pages/recommend/recommend.wxml</text>
-<image src="{{data[0].imgurl}}"></image>
