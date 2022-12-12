@@ -12,15 +12,15 @@ Page({
    */
   data: {
     tab: 0,
-    //flag:是否请求过; noMore:是否没有更多图片了
+    //flag:是否请求过; noMore:是否没有更多图片了,interstitialAdShow是否展示过插屏ad,showAdCount：多少张图片就展示插屏ad
     pictureTypes: [
-      { flag: 0, type: "boy_picture", name: "男生", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "girl_picture", name: "女生", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "comic_picture", name: "动漫", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "loves_picture", name: "情侣", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "funny_picture", name: "搞怪", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "pet_picture", name: "萌宠", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, type: "sceney_picture", name: "风景", data: [], noMore: false, interstitialAdShow: false}
+      { flag: 0, type: "boy_picture", name: "男生", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "girl_picture", name: "女生", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "comic_picture", name: "动漫", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "loves_picture", name: "情侣", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "funny_picture", name: "搞怪", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "pet_picture", name: "萌宠", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, type: "sceney_picture", name: "风景", data: [], noMore: false, interstitialAdShow: false,showAdCount:50}
     ]
   },
   //页面切换
@@ -58,15 +58,18 @@ Page({
         const pictureDataTypeKey = `pictureTypes[${index}].data`;
         const pictureTypesFlagKey = `pictureTypes[${index}].flag`;
         const pictureTypesNoMoreKey = `pictureTypes[${index}].noMore`;
+        //如果返回的数据是偶数,拼接一条广告
+        let showRet = res.result.data
+        if(showRet.length && showRet.length % 2 === 0 ){
+          showRet = showRet.concat([{ad:true}])
+        }
         this.setData({
-          [pictureDataTypeKey]: this.data.pictureTypes[index].data.concat(
-            res.result.data
-          ),
+          [pictureDataTypeKey]: this.data.pictureTypes[index].data.concat(showRet),
           [pictureTypesFlagKey]: 1,
           [pictureTypesNoMoreKey]: res.result.data.length < count
         });
         //插屏广告
-        if(this.data.pictureTypes[index].data.length > (count) && !this.data.pictureTypes[index].interstitialAdShow){
+        if(this.data.pictureTypes[index].data.length > this.data.pictureTypes[index].showAdCount && !this.data.pictureTypes[index].interstitialAdShow){
           // console.log('开广告')
           this.showInterstitialAd()
           this.setData({

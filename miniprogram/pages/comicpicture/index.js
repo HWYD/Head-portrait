@@ -1,6 +1,6 @@
 import { compareVersion } from '../../utils/index'
 const db = wx.cloud.database();
-const count = 12;
+const count = 14;
 let interstitialAd = null;
 let adshow = false;
 let videoAd = null;
@@ -11,14 +11,14 @@ Page({
    */
   data: {
     tab: 0,
-    //flag:是否请求过;dramaId:剧名id; noMore:是否没有更多图片了
+    //flag:是否请求过;dramaId:剧名id; noMore:是否没有更多图片了,interstitialAdShow是否展示过插屏ad,showAdCount：多少张图片就展示插屏ad
     pictureTypes: [
-      { flag: 0, dramaId: "1", name: "海贼王", data: [], noMore: false, interstitialAdShow: false},
-      { flag: 0, dramaId: "2", name: "火影", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "3", name: "七龙珠", data: [], noMore: false , interstitialAdShow: false},
-      { flag: 0, dramaId: "4", name: "犬夜叉", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "5", name: "美少女战士", data: [], noMore: false, interstitialAdShow: false },
-      { flag: 0, dramaId: "6", name: "哆啦A梦", data: [], noMore: false , interstitialAdShow: false}
+      { flag: 0, dramaId: "1", name: "海贼王", data: [], noMore: false, interstitialAdShow: false,showAdCount:50},
+      { flag: 0, dramaId: "2", name: "火影", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, dramaId: "3", name: "七龙珠", data: [], noMore: false , interstitialAdShow: false,showAdCount:50},
+      { flag: 0, dramaId: "4", name: "犬夜叉", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, dramaId: "5", name: "美少女战士", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
+      { flag: 0, dramaId: "6", name: "哆啦A梦", data: [], noMore: false , interstitialAdShow: false,showAdCount:50}
       // { flag: 0, dramaId: "7", name: "蜡笔小新", data: [], noMore: false },
       // { flag: 0, dramaId: "8", name: "猫和老鼠", data: [], noMore: false },
     ]
@@ -59,15 +59,18 @@ Page({
         const pictureDataTypeKey = `pictureTypes[${index}].data`;
         const pictureTypesFlagKey = `pictureTypes[${index}].flag`;
         const pictureTypesNoMoreKey = `pictureTypes[${index}].noMore`;
+        //如果返回的数据是偶数,拼接一条广告
+        let showRet = res.result.data
+        if(showRet.length && showRet.length % 2 === 0 ){
+          showRet = showRet.concat([{ad:true}])
+        }
         this.setData({
-          [pictureDataTypeKey]: this.data.pictureTypes[index].data.concat(
-            res.result.data
-          ),
+          [pictureDataTypeKey]: this.data.pictureTypes[index].data.concat(showRet),
           [pictureTypesFlagKey]: 1,
           [pictureTypesNoMoreKey]: res.result.data.length < count
         })
          //插屏广告
-        if(this.data.pictureTypes[index].data.length > (count*3) && !this.data.pictureTypes[index].interstitialAdShow){
+        if(this.data.pictureTypes[index].data.length > this.data.pictureTypes[index].showAdCount && !this.data.pictureTypes[index].interstitialAdShow){
           // console.log('开广告')
           this.showInterstitialAd()
           this.setData({

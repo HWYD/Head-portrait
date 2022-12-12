@@ -6,13 +6,13 @@
 <swiper current="{{tab}}"  style="min-height:100vh"  bindchange="changeTab" class="swiper-wrap">
   <swiper-item wx:for="{{pictureTypes}}" wx:key="type">
     <scroll-view class="img-scroll-view" scroll-y="true" 	lower-threshold="300" 	bindscrolltolower="getMore">
-      <view class="adContainer">
-        <ad unit-id="adunit-403b2845d86ab466" ad-type="video" ad-theme="white"></ad>
-      </view>
       <view class="image-list"> 
         <block wx:for="{{ item.data }}" wx:key="index"  wx:for-index="idx" wx:for-item="pictureItem">
-          <view class="image-wrap" data-imgurl="{{pictureItem.imgurl}}" bindtap="toshowImg">
+          <view wx:if="{{!pictureItem.ad}}" class="image-wrap" data-imgurl="{{pictureItem.imgurl}}" bindtap="toshowImg">
             <image class="image" src="{{pictureItem.imgurl}}" mode="aspectFill" ></image>
+          </view>
+          <view wx:else class="ad-wrap">
+            <ad unit-id="adunit-7145dcfdabbf7515"></ad>
           </view>
         </block>
       </view>

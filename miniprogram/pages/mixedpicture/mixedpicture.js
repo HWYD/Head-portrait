@@ -1,5 +1,5 @@
 import { compareVersion } from '../../utils/index'
-let count= 12
+let count= 12,showAdCount=50  //多少张图片就展示插屏ad
 let sort='asc'
 let x =0,y=0
 // 在页面中定义插屏广告
@@ -89,13 +89,18 @@ Page({
         count
       }
     }).then((res)=>{
+      //如果返回的数据是偶数,拼接一条广告
+      let showRet = res.result.data
+      if(showRet.length && showRet.length % 2 === 0 ){
+        showRet = showRet.concat([{ad:true}])
+      }
       this.setData({
-        mixedPicture:this.data.mixedPicture.concat(res.result.data),
+        mixedPicture:this.data.mixedPicture.concat(showRet),
         noMore: res.result.data.length < count
       })
     })
     //插屏广告
-    if(this.data.mixedPicture.length > (count*3)){
+    if(this.data.mixedPicture.length > showAdCount){
       this.showInterstitialAd()
     }
   },

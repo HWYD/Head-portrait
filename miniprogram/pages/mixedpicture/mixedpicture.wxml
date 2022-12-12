@@ -1,11 +1,11 @@
 <scroll-view class="img-scroll-view" scroll-y="true" 	lower-threshold="300" 	bindscrolltolower="getMore">
-  <view class="adContainer">
-    <ad unit-id="adunit-3321a0138c50a202" ad-type="video" ad-theme="white"></ad>
-  </view>
   <view class="image-list"> 
     <block wx:for="{{mixedPicture}}" wx:key="imgurl" >
-      <view class="image-wrap" data-imgurl="{{item.imgurl}}" bind:tap="toshowImg">
+      <view wx:if="{{!item.ad}}" class="image-wrap" data-imgurl="{{item.imgurl}}" bind:tap="toshowImg">
         <image class="image" src="{{item.imgurl}}" mode="aspectFill"></image>
+      </view>
+      <view wx:else class="ad-wrap">
+        <ad unit-id="adunit-3321a0138c50a202" ad-type="video" ad-theme="white"></ad>
       </view>
     </block>
   </view>

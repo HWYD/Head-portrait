@@ -20,6 +20,10 @@
   width: 100%;
   height: 100%;
 }
+.ad-wrap{
+  width: 100%;
+  margin-bottom: 20rpx;
+}
 .movable_box{
   width: 100%;
   height: 100%; 
