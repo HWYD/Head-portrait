@@ -1,7 +1,8 @@
 import { compareVersion } from '../../utils/index'
-const count = 10;
+import config from "../../config/index"
 let videoAd = null;
 const app = getApp();
+let loading = false  //数据请求时，避免重复请求
 // 在页面中定义插屏广告
 let interstitialAd = null
 Page({
@@ -12,13 +13,13 @@ Page({
     tab: 0,
     //flag:是否请求过; noMore:是否没有更多图片了,interstitialAdShow是否展示过插屏ad,showAdCount：多少张图片就展示插屏ad
     pictureTypes: [
-      { flag: 0, type: "boy_picture", name: "男生", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "girl_picture", name: "女生", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "comic_picture", name: "动漫", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "loves_picture", name: "情侣", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "funny_picture", name: "搞怪", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "pet_picture", name: "萌宠", data: [], noMore: false, interstitialAdShow: false,showAdCount:50 },
-      { flag: 0, type: "sceney_picture", name: "风景", data: [], noMore: false, interstitialAdShow: false,showAdCount:50}
+      { flag: 0, type: "boy_picture", name: "男生", data: [], dataLen: 0, noMore: false },
+      { flag: 0, type: "girl_picture", name: "女生", data: [], dataLen: 0,  noMore: false },
+      { flag: 0, type: "comic_picture", name: "动漫", data: [], dataLen: 0,  noMore: false },
+      { flag: 0, type: "loves_picture", name: "情侣", data: [], dataLen: 0,  noMore: false },
+      { flag: 0, type: "funny_picture", name: "搞怪", data: [], dataLen: 0,  noMore: false },
+      { flag: 0, type: "pet_picture", name: "萌宠", data: [], dataLen: 0,  noMore: false },
+      { flag: 0, type: "sceney_picture", name: "风景", data: [], dataLen: 0,  noMore: false}
     ]
   },
   //页面切换
@@ -39,42 +40,48 @@ Page({
   },
   //pictureTypes中的type和index
   getPictureList(index) {
-    if (this.data.pictureTypes[index].noMore) {
+    if (this.data.pictureTypes[index].noMore || loading) {
       return;
     }
+    loading = true
     wx.cloud
       .callFunction({
         name: "getPictureList",
         data: {
           $url: "pictures",
           type: this.data.pictureTypes[index].type,
-          start: this.data.pictureTypes[index].data.length,
-          count,
+          start: this.data.pictureTypes[index].dataLen,
+          count: config.count
         },
       })
       .then((res) => {
         const pictureDataTypeKey = `pictureTypes[${index}].data`;
         const pictureTypesFlagKey = `pictureTypes[${index}].flag`;
         const pictureTypesNoMoreKey = `pictureTypes[${index}].noMore`;
+        const pictureTypesDataLenKey = `pictureTypes[${index}].dataLen`;
         //如果返回的数据是偶数,拼接一条广告
         let showRet = res.result.data
+        const resLen = showRet.length
         if(showRet.length && showRet.length % 2 === 0 ){
-          showRet = showRet.concat([{ad:true}])
+          showRet = showRet.concat([{ad:true,_id:this.data.pictureTypes[index].dataLen}])
         }
         this.setData({
           [pictureDataTypeKey]: this.data.pictureTypes[index].data.concat(showRet),
           [pictureTypesFlagKey]: 1,
-          [pictureTypesNoMoreKey]: res.result.data.length < count
+          [pictureTypesNoMoreKey]: resLen < config.count,
+          [pictureTypesDataLenKey]: this.data.pictureTypes[index].dataLen + resLen
         });
         //插屏广告
-        if(this.data.pictureTypes[index].data.length > this.data.pictureTypes[index].showAdCount && !this.data.pictureTypes[index].interstitialAdShow){
-          // console.log('开广告')
+        if(this.data.pictureTypes[index].dataLen % config.showAdCount == 0){
           this.showInterstitialAd()
           this.setData({
             [`pictureTypes[${index}].interstitialAdShow`]: true
           })
         }
-      });
+        loading = false
+      }).catch(()=>{
+        loading = false
+      })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -82,7 +89,6 @@ Page({
   onLoad: function (options) {
     this.getPictureList(0);
     this.createInterstitialAd()
-    // this.getVedioAd();
   },
   toshowImg(event) {
     const imgurl = event.currentTarget.dataset.imgurl;
@@ -118,7 +124,6 @@ Page({
    */
   onReachBottom: function () {},
   getMore() {
-    console.log("触底");
     this.getPictureList(this.data.tab);
   },
 

@@ -7,7 +7,7 @@
   <swiper-item wx:for="{{pictureTypes}}" wx:key="type">
     <scroll-view class="img-scroll-view" scroll-y="true" 	lower-threshold="300" 	bindscrolltolower="getMore">
       <view class="image-list"> 
-        <block wx:for="{{ item.data }}" wx:key="index"  wx:for-index="idx" wx:for-item="pictureItem">
+        <block wx:for="{{ item.data }}" wx:key="_id"  wx:for-index="idx" wx:for-item="pictureItem">
           <view wx:if="{{!pictureItem.ad}}" class="image-wrap" data-imgurl="{{pictureItem.imgurl}}" bindtap="toshowImg">
             <image class="image" src="{{pictureItem.imgurl}}" mode="aspectFill" ></image>
           </view>

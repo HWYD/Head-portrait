@@ -1,6 +1,6 @@
 <scroll-view class="img-scroll-view" scroll-y="true" 	lower-threshold="300" 	bindscrolltolower="getMore">
   <view class="image-list"> 
-    <block wx:for="{{mixedPicture}}" wx:key="imgurl" >
+    <block wx:for="{{mixedPicture}}" wx:key="_id" >
       <view wx:if="{{!item.ad}}" class="image-wrap" data-imgurl="{{item.imgurl}}" bind:tap="toshowImg">
         <image class="image" src="{{item.imgurl}}" mode="aspectFill"></image>
       </view>

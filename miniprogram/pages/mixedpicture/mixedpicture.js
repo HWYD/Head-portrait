@@ -1,6 +1,6 @@
 import { compareVersion } from '../../utils/index'
-let count= 10,showAdCount=50  //多少张图片就展示插屏ad
-let sort='asc'
+import config from "../../config/index"
+let loading = false,dataLen = 0  //数据请求时，避免重复请求
 let x =0,y=0
 // 在页面中定义插屏广告
 let interstitialAd = null
@@ -66,7 +66,6 @@ Page({
   //  this.getPictureList()
   },
   getMore() {
-    console.log("触底");
     this.getPictureList();
   },
 
@@ -77,32 +76,36 @@ Page({
 
   },
   getPictureList(){
-    if (this.data.noMore) {
+    if (this.data.noMore || loading) {
       return;
     }
+    loading = true
     wx.cloud.callFunction({
       name:'getPictureList',
       data:{
         $url:'pictures',
-        start:this.data.mixedPicture.length,
-        sort,
-        count
+        start: dataLen,
+        count: config.count
       }
     }).then((res)=>{
       //如果返回的数据是偶数,拼接一条广告
       let showRet = res.result.data
+      dataLen = dataLen + showRet.length
       if(showRet.length && showRet.length % 2 === 0 ){
         showRet = showRet.concat([{ad:true}])
       }
       this.setData({
         mixedPicture:this.data.mixedPicture.concat(showRet),
-        noMore: res.result.data.length < count
+        noMore: res.result.data.length < config.count
       })
+      //插屏广告
+      if(dataLen % config.showAdCount ==0){
+        this.showInterstitialAd()
+      }
+      loading = false
+    }).catch(()=>{
+      loading = false
     })
-    //插屏广告
-    if(this.data.mixedPicture.length > showAdCount){
-      this.showInterstitialAd()
-    }
   },
   toshowImg(event){
     // console.log(event.currentTarget.dataset.imginfo)
@@ -133,7 +136,6 @@ Page({
     }    
   },
   touchEndfn(){
-    console.log('结束',x,y)
       this.setData({
         x :0,
         y
