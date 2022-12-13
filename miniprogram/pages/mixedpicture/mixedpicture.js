@@ -1,5 +1,5 @@
 import { compareVersion } from '../../utils/index'
-let count= 12,showAdCount=50  //多少张图片就展示插屏ad
+let count= 10,showAdCount=50  //多少张图片就展示插屏ad
 let sort='asc'
 let x =0,y=0
 // 在页面中定义插屏广告

@@ -1,7 +1,5 @@
 import { compareVersion } from '../../utils/index'
-const db = wx.cloud.database();
-const count = 12;
-let adshow = false;
+const count = 10;
 let videoAd = null;
 const app = getApp();
 // 在页面中定义插屏广告

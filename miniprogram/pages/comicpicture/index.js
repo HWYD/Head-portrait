@@ -1,10 +1,7 @@
 import { compareVersion } from '../../utils/index'
-const db = wx.cloud.database();
-const count = 14;
+const count = 10;
 let interstitialAd = null;
-let adshow = false;
 let videoAd = null;
-const app = getApp();
 Page({
   /**
    * 页面的初始数据
