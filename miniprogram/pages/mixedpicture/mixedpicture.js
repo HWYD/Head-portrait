@@ -1,6 +1,6 @@
 import { compareVersion } from '../../utils/index'
 import config from "../../config/index"
-let loading = false,dataLen = 0  //数据请求时，避免重复请求
+let loading = false,dataLen = 0, sort= "asc"   //loading: 数据请求时，避免重复请求
 let x =0,y=0
 // 在页面中定义插屏广告
 let interstitialAd = null
@@ -85,7 +85,8 @@ Page({
       data:{
         $url:'pictures',
         start: dataLen,
-        count: config.count
+        count: config.count,
+        sort
       }
     }).then((res)=>{
       //如果返回的数据是偶数,拼接一条广告
@@ -122,6 +123,7 @@ Page({
       sort='asc'
     }
     this.data.mixedPicture=[]
+    dataLen = 0
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
